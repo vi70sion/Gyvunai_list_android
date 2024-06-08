@@ -1,19 +1,14 @@
 package com.example.gyvunai;
-
-import android.graphics.Color;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,11 +21,17 @@ public class MainActivity extends AppCompatActivity {
     TextView rezultatas;
     Button button;
     Gyvunas gyvunas = new Gyvunas();
+    String kiekis = "";
+
+    ListView listView;
+    ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout);
+        listView = findViewById(R.id.listview);
     }
 
     public void addAnimal(View v){
@@ -48,12 +49,22 @@ public class MainActivity extends AppCompatActivity {
                 tName.setText("");
                 tAge.setText("");
                 tType.setText("");
+                kiekis = Integer.toString(gyvunas.getGyvunaiList().size());
+                Toast.makeText(this, kiekis, Toast.LENGTH_SHORT).show();
             } else Toast.makeText(this, "Įveskite visas reikšmes", Toast.LENGTH_SHORT).show();
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Neteisingas amžius", Toast.LENGTH_SHORT).show();
         }
 
+    }
 
+    public void printList(View v){
+        List<String> items = new ArrayList<>();
+        for(Gyvunas item: gyvunas.getGyvunaiList()){
+            items.add(item.toString());
+        }
+        adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, items);
+        listView.setAdapter(adapter);
     }
 
 

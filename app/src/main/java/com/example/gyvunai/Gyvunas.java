@@ -22,6 +22,12 @@ public class Gyvunas {
     public void addGyvunasToList(Gyvunas gyvunas){
         gyvunuList.add(gyvunas);
     }
+    public List<Gyvunas> getGyvunaiList(){
+        return gyvunuList;
+    }
 
-
+    @Override
+    public String toString(){
+        return "Vardas: " + vardas + ", amžius: " + amzius + ", rūšis: " + rusis;
+    }
 }
